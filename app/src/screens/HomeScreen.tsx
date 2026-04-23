@@ -27,6 +27,9 @@ export default function HomeScreen() {
     AsyncStorage.getItem(ONBOARDING_KEY).then(seen => {
       if (!seen) setShowOnboarding(true);
     });
+    // Request permissions upfront so gallery/camera open on first tap
+    ImagePicker.requestMediaLibraryPermissionsAsync();
+    ImagePicker.requestCameraPermissionsAsync();
   }, []);
 
   const dismissOnboarding = useCallback(async () => {

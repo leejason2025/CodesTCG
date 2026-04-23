@@ -18,7 +18,9 @@ export async function saveCodes(codes: ScannedCode[]): Promise<void> {
 
 export async function appendCodes(newCodes: ScannedCode[]): Promise<ScannedCode[]> {
   const existing = await loadCodes();
-  const merged = [...existing, ...newCodes];
+  const seen = new Set(existing.map(c => c.code));
+  const deduped = newCodes.filter(c => !seen.has(c.code));
+  const merged = [...existing, ...deduped];
   await saveCodes(merged);
   return merged;
 }

@@ -6,15 +6,16 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.tcgcodescanner.app",
+      "buildNumber": "1",
       "deploymentTarget": "16.0",
       "infoPlist": {
         "NSCameraUsageDescription": "Used to photograph your code cards for batch scanning.",
@@ -35,6 +36,7 @@
       "edgeToEdgeEnabled": true
     },
     "plugins": [
+      "./plugins/withVisionOCR",
       [
         "expo-camera",
         {

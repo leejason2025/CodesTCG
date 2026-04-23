@@ -1,7 +1,7 @@
 import { scanFromURLAsync } from 'expo-camera';
-import TextRecognition from '@react-native-ml-kit/text-recognition';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { extractCode, findCodesInText } from './codeParser';
+import { recognizeText } from './visionOCR';
 import { ScannedCode, Confidence } from '../types';
 
 function makeId(): string {
@@ -10,7 +10,7 @@ function makeId(): string {
 
 async function resolveToFileUri(uri: string): Promise<string> {
   // Re-save the image through ImageManipulator — this bakes in EXIF rotation
-  // so ML Kit always receives correctly-oriented pixels regardless of source
+  // so Vision always receives correctly-oriented pixels regardless of source
   const result = await ImageManipulator.manipulateAsync(uri, [], {
     compress: 1,
     format: ImageManipulator.SaveFormat.JPEG,
@@ -23,30 +23,22 @@ export async function scanImageForCodes(imageUri: string): Promise<ScannedCode[]
   const seenCodes = new Set<string>();
 
   const fileUri = await resolveToFileUri(imageUri);
-  console.log('[Scanner] original URI:', imageUri);
-  console.log('[Scanner] resolved URI:', fileUri);
 
   // QR scan from still image
   let qrValues: string[] = [];
   try {
     const scanned = await scanFromURLAsync(fileUri, ['qr']);
     qrValues = scanned.map(r => r.data);
-    console.log('[Scanner] QR results:', qrValues.length, qrValues);
-  } catch (e) {
-    console.log('[Scanner] QR error:', e);
+  } catch {
     qrValues = [];
   }
 
-  // OCR scan for cross-validation
+  // Apple Vision OCR — full resolution, no downsampling
   let ocrCodes: string[] = [];
   try {
-    const result = await TextRecognition.recognize(fileUri);
-    const fullText = result.blocks.map((b: any) => b.text).join(' ');
-    console.log('[Scanner] OCR full text:', fullText.slice(0, 500));
-    ocrCodes = findCodesInText(fullText);
-    console.log('[Scanner] OCR codes found:', ocrCodes);
-  } catch (e) {
-    console.log('[Scanner] OCR error:', e);
+    const text = await recognizeText(fileUri);
+    ocrCodes = findCodesInText(text);
+  } catch {
     ocrCodes = [];
   }
 
@@ -59,7 +51,7 @@ export async function scanImageForCodes(imageUri: string): Promise<ScannedCode[]
     results.push({ id: makeId(), code, confidence, scannedAt: Date.now() });
   }
 
-  // OCR-only codes not caught by QR
+  // OCR-only codes
   for (const code of ocrCodes) {
     if (seenCodes.has(code)) continue;
     seenCodes.add(code);
