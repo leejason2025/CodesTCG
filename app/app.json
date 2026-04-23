@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "TCG Code Scanner",
+    "slug": "tcg-code-scanner",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tcgcodescanner.app",
+      "deploymentTarget": "16.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Used to photograph your code cards for batch scanning.",
+        "NSPhotoLibraryUsageDescription": "Used to import photos of your code cards for scanning."
+      }
+    },
+    "android": {
+      "package": "com.tcgcodescanner.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES"
+      ],
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Used to photograph your code cards for batch scanning."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Used to import photos of your code cards for scanning.",
+          "cameraPermission": "Used to photograph your code cards for batch scanning."
+        }
+      ]
+    ],
+    "assetBundlePatterns": [
+      "assets/samples/*"
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
