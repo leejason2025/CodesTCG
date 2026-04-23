@@ -19,7 +19,8 @@
       "deploymentTarget": "16.0",
       "infoPlist": {
         "NSCameraUsageDescription": "Used to photograph your code cards for batch scanning.",
-        "NSPhotoLibraryUsageDescription": "Used to import photos of your code cards for scanning."
+        "NSPhotoLibraryUsageDescription": "Used to import photos of your code cards for scanning.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -31,12 +32,21 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.READ_MEDIA_IMAGES"
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO"
       ],
       "edgeToEdgeEnabled": true
     },
     "plugins": [
       "./plugins/withVisionOCR",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.0"
+          }
+        }
+      ],
       [
         "expo-camera",
         {
@@ -56,6 +66,12 @@
     ],
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0c0fce99-59de-4d2c-8e26-c836122ecd7f"
+      }
+    },
+    "owner": "jl88"
   }
 }
