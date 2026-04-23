@@ -10,9 +10,9 @@ interface Props {
 }
 
 const CONFIDENCE_COLORS: Record<Confidence, string> = {
-  high: '#30d158',
-  medium: '#ffd60a',
-  low: '#ff453a',
+  high: '#00c853',
+  medium: '#ffb300',
+  low: '#f44336',
 };
 
 export default function CodeRow({ item, onDelete, onEdit }: Props) {
@@ -42,14 +42,22 @@ export default function CodeRow({ item, onDelete, onEdit }: Props) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row', alignItems: 'center',
-    backgroundColor: '#1c1c1e', borderRadius: 10,
-    paddingHorizontal: 12, paddingVertical: 12, marginBottom: 8,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 14, paddingVertical: 13, marginBottom: 8,
     gap: 10,
+    borderWidth: 1,
+    borderColor: '#e8f5e9',
+    shadowColor: '#00c853',
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
   },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-  code: { flex: 1, color: '#fff', fontFamily: 'monospace', fontSize: 15, letterSpacing: 1 },
-  btns: { flexDirection: 'row', gap: 8 },
+  dot: { width: 9, height: 9, borderRadius: 5 },
+  code: { flex: 1, color: '#1a1a1a', fontFamily: 'monospace', fontSize: 15, letterSpacing: 1 },
+  btns: { flexDirection: 'row', gap: 6 },
   btn: { paddingHorizontal: 8, paddingVertical: 4 },
-  btnText: { color: '#4a9eff', fontSize: 13, fontWeight: '600' },
-  deleteText: { color: '#ff453a' },
+  btnText: { color: '#00c853', fontSize: 13, fontWeight: '700' },
+  deleteText: { color: '#f44336' },
 });
