@@ -38,4 +38,6 @@ yarn-error.*
 
 # generated native folders
 /ios
+!/ios/CodesTCG/VisionOCR.swift
+!/ios/CodesTCG/VisionOCR.m
 /android
