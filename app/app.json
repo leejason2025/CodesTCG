@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.tcgcodescanner.app",
+      "bundleIdentifier": "com.codestcg.app",
       "buildNumber": "1",
       "deploymentTarget": "16.0",
       "infoPlist": {
